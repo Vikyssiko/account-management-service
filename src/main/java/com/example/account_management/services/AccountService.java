@@ -1,7 +1,7 @@
 package com.example.account_management.services;
 
 import com.example.account_management.entities.Account;
-import com.example.account_management.events.UserCreationEvent;
+import com.example.account_management.events.UserCreatedEvent;
 import com.example.account_management.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -14,7 +14,7 @@ import java.util.Random;
 public class AccountService {
     private final AccountRepository accountRepository;
     @EventListener
-    public void createAccount(UserCreationEvent event) {
+    public void createAccount(UserCreatedEvent event) {
         String number = generateAccountNumber();
         while (accountRepository.findByNumber(number).isPresent()) {
             number = generateAccountNumber();

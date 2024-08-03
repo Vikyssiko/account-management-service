@@ -16,9 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Account withdraw(final AccountTransactionDto dto, final String userEmail) throws BadRequestException {
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " not found"));
+    public Account withdraw(final AccountTransactionDto dto, final User user) throws BadRequestException {
         Account account = getUserAccount(user);
         double balance =  account.getBalance();
         double withdrawAmount = dto.getAmount();
@@ -31,9 +29,7 @@ public class UserService {
     }
 
     @Transactional
-    public Account deposit(final AccountTransactionDto dto, final String userEmail) throws BadRequestException {
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " not found"));
+    public Account deposit(final AccountTransactionDto dto, final User user) throws BadRequestException {
         Account account = getUserAccount(user);
         double balance =  account.getBalance();
         double depositAmount = dto.getAmount();

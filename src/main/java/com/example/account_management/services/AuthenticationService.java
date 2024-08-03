@@ -2,7 +2,7 @@ package com.example.account_management.services;
 
 import com.example.account_management.dto.AuthUserDto;
 import com.example.account_management.entities.User;
-import com.example.account_management.events.UserCreationEvent;
+import com.example.account_management.events.UserCreatedEvent;
 import com.example.account_management.exceptions.UserAlreadySignedUpException;
 import com.example.account_management.repositories.RoleRepository;
 import com.example.account_management.repositories.UserRepository;
@@ -29,7 +29,7 @@ public class AuthenticationService {
         User user = new User(input.getEmail(), passwordEncoder.encode(input.getPassword()));
         user.setRole(roleRepository.findByName("ROLE_USER").orElseThrow());
         User savedUser = userRepository.save(user);
-        UserCreationEvent userCreationEvent = new UserCreationEvent(this, savedUser);
+        UserCreatedEvent userCreationEvent = new UserCreatedEvent(this, savedUser);
         publisher.publishEvent(userCreationEvent);
         return savedUser;
     }
