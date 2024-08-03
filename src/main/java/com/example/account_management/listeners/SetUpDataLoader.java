@@ -1,10 +1,12 @@
 package com.example.account_management.listeners;
 
 import com.example.account_management.configs.AdminConfig;
+import com.example.account_management.dto.AuthUserDto;
 import com.example.account_management.entities.Role;
 import com.example.account_management.entities.User;
 import com.example.account_management.repositories.RoleRepository;
 import com.example.account_management.repositories.UserRepository;
+import com.example.account_management.services.AuthenticationService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
@@ -21,6 +23,7 @@ public class SetUpDataLoader implements ApplicationListener<ContextRefreshedEven
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationService authenticationService;
 
     @Override
     @Transactional
@@ -38,6 +41,7 @@ public class SetUpDataLoader implements ApplicationListener<ContextRefreshedEven
             );
             userRepository.save(user);
         }
+//        addTestUsers();
 
         alreadySetup = true;
     }
@@ -50,5 +54,11 @@ public class SetUpDataLoader implements ApplicationListener<ContextRefreshedEven
             roleRepository.save(role);
         }
         return role;
+    }
+
+    @Transactional
+    void addTestUsers() {
+        authenticationService.signup(new AuthUserDto("test_user@test.com", "test_user"));
+        authenticationService.signup(new AuthUserDto("test@test.com", "test"));
     }
 }

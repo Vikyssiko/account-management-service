@@ -1,8 +1,6 @@
 package com.example.account_management.controllers;
 
-import com.example.account_management.converters.AccountToAccountDtoConverter;
 import com.example.account_management.dto.AccountDto;
-import com.example.account_management.entities.Account;
 import com.example.account_management.services.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;

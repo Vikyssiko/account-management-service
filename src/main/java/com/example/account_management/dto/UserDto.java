@@ -1,5 +1,9 @@
 package com.example.account_management.dto;
 
-public class UserDto {
+import lombok.Data;
 
+@Data
+public class UserDto {
+    private Long id;
+    private String email;
 }

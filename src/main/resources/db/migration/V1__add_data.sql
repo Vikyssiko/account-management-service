@@ -1,4 +1,0 @@
--- INSERT INTO roles(name) VALUES ('ROLE_USER'), ('ROLE_ADMIN');
---
--- INSERT INTO users(email, password, role_id)
--- VALUES ('admin@gmail.com', '$2a$10$Bjyhu4ufcB.iysr5ea6r/e/zhD84FoTRg6dgJwIw93okT6h.44nO6', 2);

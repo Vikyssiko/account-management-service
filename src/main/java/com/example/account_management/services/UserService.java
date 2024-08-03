@@ -22,7 +22,7 @@ public class UserService {
         Account account = getUserAccount(user);
         double balance =  account.getBalance();
         double withdrawAmount = dto.getAmount();
-        double newBalance = balance - withdrawAmount;
+        double newBalance = (balance * 100 - withdrawAmount * 100) / 100;
         if (newBalance < 0) {
             throw new BadRequestException("Insufficient funds");
         }
@@ -37,7 +37,8 @@ public class UserService {
         Account account = getUserAccount(user);
         double balance =  account.getBalance();
         double depositAmount = dto.getAmount();
-        user.getAccount().setBalance(balance + depositAmount);
+        double newBalance = (balance * 100 + depositAmount * 100) / 100;
+        user.getAccount().setBalance(newBalance);
         return userRepository.save(user).getAccount();
     }
 

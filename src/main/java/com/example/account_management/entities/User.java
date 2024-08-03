@@ -18,7 +18,6 @@ import java.util.List;
 @JsonIgnoreProperties({"id", "account", "role"})
 @Table(name = "users")
 public class User implements UserDetails {
-    // TODO ExpiredJWTException
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
