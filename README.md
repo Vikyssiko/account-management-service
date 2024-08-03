@@ -56,13 +56,14 @@ Admin credentials are:
 
 ### Available user API endpoints
 These endpoints are available only with user token (when you log in as user)
+* Get account `GET` `api/accounts`
 * Deposit money to the account `PUT` `api/accounts/deposit` with a JSON containing amount to deposit
 ```
 {
     "amount": "9.99"
 }
 ```
-* Deposit money to the account `PUT` `api/accounts/withdraw` with a JSON containing amount to withdraw.\
+* Withdraw money from the account `PUT` `api/accounts/withdraw` with a JSON containing amount to withdraw.\
 When account is blocked it is not possible to do any operations with the account. Also it is not possible to withdraw money if there is not enough money
 
 ## Errors

@@ -4,7 +4,6 @@ import com.example.account_management.dto.AccountTransactionDto;
 import com.example.account_management.entities.Account;
 import com.example.account_management.entities.User;
 import com.example.account_management.repositories.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class UserService {
 
     @Transactional
     public Account withdraw(final AccountTransactionDto dto, final User user) throws BadRequestException {
-        Account account = getUserAccount(user);
+        Account account = getUserAccountIfNotBlocked(user);
         double balance =  account.getBalance();
         double withdrawAmount = dto.getAmount();
         double newBalance = (balance * 100 - withdrawAmount * 100) / 100;
@@ -30,7 +29,7 @@ public class UserService {
 
     @Transactional
     public Account deposit(final AccountTransactionDto dto, final User user) throws BadRequestException {
-        Account account = getUserAccount(user);
+        Account account = getUserAccountIfNotBlocked(user);
         double balance =  account.getBalance();
         double depositAmount = dto.getAmount();
         double newBalance = (balance * 100 + depositAmount * 100) / 100;
@@ -38,7 +37,7 @@ public class UserService {
         return userRepository.save(user).getAccount();
     }
 
-    private Account getUserAccount(User user) throws BadRequestException {
+    private Account getUserAccountIfNotBlocked(User user) throws BadRequestException {
         Account account = user.getAccount();
         if (!account.isActive()) {
             throw new BadRequestException("Account is blocked");
